@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="todo">
+    <button onclick="addToDo()">Add todo</button>
+    <div id="output">
+
+    </div>
+</body>
+</html>
+<script>
+    let database = []
+    let myInput = document.getElementById('todo')
+    function addToDo() {
+        if (myInput.value.trim() == '') {
+            alert('Please input a value')
+        } else {
+            database.push(myInput.value.trim())
+            console.log(database);
+            
+            myInput.value = ''
+            display()
+        }
+    }
+
+    function editValue(i) {
+        let promptValue = prompt('Enter edit value here', database.splice(i))
+        if (promptValue.trim() === '') {
+            alert('Invalid edit value')
+        } else if (promptValue === 'Type here') {
+            alert('Invalid edit value')
+        } else {
+            database.splice(i , 1 , promptValue)
+            display()
+        }
+    }
+    function deleteBtn(i) {
+        for (let index = 0; index < database.length; index++) {
+            output.innerHTML = `<p> <button onclick=deleteBtn(${index})> Delete </button> <button onclick=editValue(${index})> Edit </button> </p>`
+        }
+    }
+    function display(params) {
+        output.innerHTML =''
+            for (let index = 0; index < database.length; index++) {
+                output.innerHTML += `<p> ${database[index]} <button onclick=deleteBtn(${index})> Delete </button> <button onclick=editValue(${index})> Edit </button> </p>`
+            }
+    }
+</script>
